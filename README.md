@@ -24,6 +24,11 @@ Creates a HTML formatted daily backup status report and sends via Email.
 
     _Note: The "Report Generation Section" can be left unedited unless you are looking to alter the type of report generated.  This will also require that modifciations are made to the nw_daily_rpt_ps1 script_
 
+    _Note: If you experience any issues you can validate that all variables are being properly parseded using check_vars.ps1_
+
+    ```
+    ./check_vars.ps1
+    ```
 
 ## Usage
 

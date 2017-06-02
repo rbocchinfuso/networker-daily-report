@@ -33,6 +33,7 @@ $configfile = "nw_vars.txt"
 Get-Content $configfile | Where-Object {$_.trim() -ne "" } | Where-Object {$_ -notmatch "^#"} | Foreach-Object {
     $var = $_.Split('=')
     New-Variable -Name $var[0] -Value $var[1]
+    # Write-Host $var[0] "=" $var[1] -ForegroundColor Green
 }
 
 #----------------------------------------------------------[Declarations]----------------------------------------------------------
