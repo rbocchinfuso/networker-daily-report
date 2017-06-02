@@ -1,0 +1,35 @@
+#--------------------[Configuration File]--------------------------------------
+
+#-------------------------[Version]--------------------------------------------
+ver=0.2
+
+#---------------------[Environment Info]---------------------------------------
+site=site
+datazone=datazone
+nwsvr=nw9
+
+#---------------------[NMC Credentials]----------------------------------------
+nmcuser=administrator
+nmcpassword=password
+
+#------------------[Report Output Location]------------------------------------
+reportstore=x:\location\for\reports
+
+#-----------------------[Mail Settings]----------------------------------------
+smtpServer=smtp.server.com
+smtpPort=587
+domain=domain.com
+emailFrom=noreply@domain.com
+emailTo=recipient@domain.com
+#EmailTo=<recipient1@foo.com>,<recipient@abar.com>
+emailCc=
+###### smtp credentials (if auth is required)
+smtpUser=username
+smtpPassword=password
+
+#----------------[Report Generation Variables]---------------------------------
+gstclrpt=C:\Program Files\EMC NetWorker\Management\GST\bin\gstclreport.bat
+rptformat=csv
+rpt=/Reports/NetWorker Backup Status/Group Summary by Client and Server
+rpttype=Daily_Status
+rawdata=rawdata
