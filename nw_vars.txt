@@ -21,7 +21,7 @@ smtpPort=587
 domain=domain.com
 emailFrom=noreply@domain.com
 emailTo=recipient@domain.com
-#EmailTo=<recipient1@foo.com>,<recipient@abar.com>
+#EmailTo=<recipient1@foo.com>,<recipient2@abar.com>
 emailCc=
 ###### smtp credentials (if auth is required)
 smtpUser=username
