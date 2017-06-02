@@ -15,6 +15,7 @@
 .NOTES
   Version:        0.2
   Author:         Richard Bocchinfuso
+  Email:          rbocchinfuso@gmail.com
   Creation Date:  12/20/2016
   Purpose/Change: Created config file for variables and cleaned up script
   

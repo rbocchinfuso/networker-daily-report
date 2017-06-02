@@ -14,6 +14,7 @@
 .NOTES
   Version:        0.2
   Author:         Richard Bocchinfuso
+  Email:          rbocchinfuso@gmail.com
   Creation Date:  12/20/2016
   Purpose/Change: Validate variables parsed from nw_vars.txt
 .EXAMPLE
