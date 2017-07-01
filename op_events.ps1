@@ -3,9 +3,9 @@
 
 <#
 .SYNOPSIS
-  OpsGenine POSH Module
+  Ops Event POSH Module
 .DESCRIPTION
-  Parses csv for failures and triggers OpsGenie Alert via API
+  Parses csv for failures and triggers event via API
 .PARAMETER <Parameter_Name>
     <Brief description of parameter input required. Repeat this attribute if required>
 .INPUTS
@@ -19,10 +19,10 @@
   Purpose/Change: Initial build
   
 .EXAMPLE
-  ./opsgenie_alert.ps1
+  ./op_events.ps1
   Note:  Use this sytax when running from Powershell prompt
 .EXAMPLE
-  start powershell "& "./opsgenie_alert.ps1"
+  start powershell "& "./op_events.ps1"
   Note:  Use this syntax when running from Windows command prompt or as a scheduled task
 #>
 
@@ -48,7 +48,7 @@ $csvfile = $reportstore + $rawdata + ".csv"
 
 #region ------------------------------------------------------------[Functions]----------------------------------------------------------
 
-Function Alert {
+Function OpsGenie {
   
   Param ($message, $arr)
   foreach ($s in $arr) {
@@ -70,11 +70,39 @@ Function Alert {
   Invoke-WebRequest -Uri $uri -Body $json -Headers $headers -Method Post
 }
 
+Function OpenDuty {  # work in progress
+  
+  Param ($message, $arr)
+  foreach ($s in $arr) {
+     $description = $s | Out-String
+  }
+
+  $uri = $OpenDutyAPIuri
+  $headers = @{
+      Accept = 'application/json'
+  }
+  $json = @{
+      apiKey = $OpenDutyAPIkey
+      event_type = $event_type
+      client = $site
+      description = $message
+      details = $description
+  } | ConvertTo-Json
+
+  Invoke-WebRequest -Uri $uri -Body $json -Headers $headers -Method Post
+}
+
 #endregion
 
 #region -----------------------------------------------------------[Execution]------------------------------------------------------------
 
 try {
+
+switch ($opsSystem) {
+  opsgenie {$funcName = "OpsGenie"}
+  openduty {$funcName = "OpenDuty"}  # work in progress
+  default {Write-Host "Unspported Ops System" -ForegroundColor "Red"}
+}
 
 $nullMessage = "Report from server " + $nwsvr + " in datazone " + $datazone + " at site " + $site + " is NULL check server processes!"
 
@@ -83,7 +111,7 @@ if (Test-Path $csvfile) {
   $csvData = Get-Content -Path $csvfile | Select-Object -Skip 10 | ConvertFrom-Csv
 
   if ($csvData -eq $null) {
-    Alert $nullMessage
+    & $funcName $nullMessage
   }
   else {
     for ($i=0; $i -lt $csvData.count; $i++)
@@ -91,17 +119,17 @@ if (Test-Path $csvfile) {
       $failCount = [int]$csvData[$i].Failed
       if ($failCount -gt 0) {
         $message = $site + ": " + $csvData[$i]."Failed" + " failed job(s) on client " + $csvData[$i]."Client Name" + " on server " + $csvData[$i]."Server Name"
-        Alert $message $csvData[$i]
+        & $funcName $message $csvData[$i]
       }
     }
   }
 
   ## cleanup
-  # Remove-Item $csvfile
+  Remove-Item $csvfile
 
   }
   else {
-    Alert $nullMessage
+    & $funcName $nullMessage
   }
 
 
@@ -113,7 +141,7 @@ catch [system.exception] {
 }
 
 finally {
-    Write-Host "Output parsed for failure and OpsGenie Alerts triggered" -ForegroundColor "Green"
+    Write-Host "Output parsed for failures and op event(s) triggered for any failures" -ForegroundColor "Green"
 }
 
 #endregion

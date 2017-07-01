@@ -34,7 +34,22 @@ rpt=/Reports/NetWorker Backup Status/Group Summary by Client and Server
 rpttype=Daily_Status
 rawdata=rawdata
 
+[Ops System]
+###### working
+opsSystem=opsgenie
+###### work in progress
+#opsSystem=openduty
+###### future use
+#opsSystem=pagerduty
+#opsSystem=victorops
+
 [OpsGenie]
 OpsGenieAPIuri=https://api.opsgenie.com/v1/json/alert
 OpsGenieAPIkey=00000000-0000-0000-0000-000000000000
 teams=support_team
+
+[OpenDuty]
+OpenDutyAPIuri=http://your.openduty.foo/api/create_event
+OpenDutyAPIkey=0000000000000000000000000000000000000000
+event_type=trigger
+

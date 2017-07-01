@@ -118,7 +118,7 @@ finally {
     Write-Host "Report Script Complete" -ForegroundColor "Green"
 }
 
-## trigger failure check and OpsGenie alert module
-& ".\opsgenie_alert.ps1"
+## trigger failure check and alert module
+& ".\op_events.ps1"
 
 #endregion
