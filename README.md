@@ -16,18 +16,20 @@ Creates a HTML formatted daily backup status report and sends via Email.
     git clone https://github.com/rbocchinfuso/networker-daily-report.git
 ```
 
-- Update variables in nw_vars.txt file.  You should update the following sections:
+- Copy config.ini.example to config.ini
+- Update variables in config.ini file.  You should update the following sections:
     - Environment Info
     - NMC Credentials
     - Report Output Location
     - Mail Settings
+    - OpsGenie Settings
 
     _Note: The "Report Generation Section" can be left unedited unless you are looking to alter the type of report generated.  This will also require that modifciations are made to the nw_daily_rpt_ps1 script_
 
     _Note: If you experience any issues you can validate that all variables are being properly parseded using check_vars.ps1_
 
     ```
-    ./check_vars.ps1
+    ./check_config.ps1
     ```
 
 ## Usage
@@ -53,6 +55,7 @@ Creates a HTML formatted daily backup status report and sends via Email.
 
 - version 0.1 (initial release) - 2014/10/23
 - version 0.2 (cleaned up code and documentation) - 2016/12/20
+- version 0.3 (added opsgenie.ps1 module to parse csv and generate opsgenie alerts) - 2017/07/01
 
 ## Credits
 

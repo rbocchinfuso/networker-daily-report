@@ -13,7 +13,7 @@
 .OUTPUTS
   html report located in "reportstore" location set in config file
 .NOTES
-  Version:        0.2
+  Version:        0.2.1
   Author:         Richard Bocchinfuso
   Email:          rbocchinfuso@gmail.com
   Creation Date:  12/20/2016
@@ -27,17 +27,19 @@
   Note:  Use this syntax when running from Windows command prompt or as a scheduled task
 #>
 
-#---------------------------------------------------------[Initialization]---------------------------------------------------------
+#region ---------------------------------------------------------[Initialization]---------------------------------------------------------
 
 ## get vars from config file
-$configfile = "nw_vars.txt"
-Get-Content $configfile | Where-Object {$_.trim() -ne "" } | Where-Object {$_ -notmatch "^#"} | Foreach-Object {
+$configfile = "config.ini"
+Get-Content $configfile | Where-Object {$_.trim() -ne "" } | Where-Object {$_ -notmatch "^#" -and $_ -notmatch "^\[" } | Foreach-Object {
     $var = $_.Split('=')
     New-Variable -Name $var[0] -Value $var[1]
     # Write-Host $var[0] "=" $var[1] -ForegroundColor Green
 }
 
-#----------------------------------------------------------[Declarations]----------------------------------------------------------
+#endregion
+
+#region ----------------------------------------------------------[Declarations]----------------------------------------------------------
 
 $date = Get-Date -Format D
 $now = Get-Date -uformat "%Y-%m-%d_%H-%M-%S"
@@ -49,8 +51,9 @@ $csvfile = $reportstore + $rawdata + ".csv"
 ### report output
 $htmlout = "${reportstore}${nwsvr}_${rpttype}_${now}.html"
 
+#endregion
 
-#-----------------------------------------------------------[Execution]------------------------------------------------------------
+#region -----------------------------------------------------------[Execution]------------------------------------------------------------
 
 try {
 
@@ -101,7 +104,7 @@ $smtpClient.Send($smtpMessage)
 
 ## cleanup
 $smtpMessage.Dispose()
-Remove-Item $csvfile
+# Remove-Item $csvfile
 Remove-Item $htmlout
 
 }
@@ -114,3 +117,8 @@ catch [system.exception] {
 finally {
     Write-Host "Report Script Complete" -ForegroundColor "Green"
 }
+
+## trigger failure check and OpsGenie alert module
+& ".\opsgenie_alert.ps1"
+
+#endregion

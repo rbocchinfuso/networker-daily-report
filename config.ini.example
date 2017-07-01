@@ -1,21 +1,21 @@
-#--------------------[Configuration File]--------------------------------------
+[Configuration File]
 
-#-------------------------[Version]--------------------------------------------
-ver=0.2
+[Version]
+ver=0.3
 
-#---------------------[Environment Info]---------------------------------------
+[Environment Info]
 site=site
 datazone=datazone
 nwsvr=nw9
 
-#---------------------[NMC Credentials]----------------------------------------
+[NMC Credentials]
 nmcuser=administrator
 nmcpassword=password
 
-#------------------[Report Output Location]------------------------------------
+[Report Output Location]
 reportstore=x:\location\for\reports
 
-#-----------------------[Mail Settings]----------------------------------------
+[Mail Settings]
 smtpServer=smtp.server.com
 smtpPort=587
 domain=domain.com
@@ -27,9 +27,14 @@ emailCc=
 smtpUser=username
 smtpPassword=password
 
-#----------------[Report Generation Variables]---------------------------------
+[Report Generation Variables]
 gstclrpt=C:\Program Files\EMC NetWorker\Management\GST\bin\gstclreport.bat
 rptformat=csv
 rpt=/Reports/NetWorker Backup Status/Group Summary by Client and Server
 rpttype=Daily_Status
 rawdata=rawdata
+
+[OpsGenie]
+OpsGenieAPIuri=https://api.opsgenie.com/v1/json/alert
+OpsGenieAPIkey=00000000-0000-0000-0000-000000000000
+teams=support_team
