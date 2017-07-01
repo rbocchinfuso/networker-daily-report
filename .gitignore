@@ -1,2 +1,5 @@
+# Ignore .gitignore
+.gitignore
+
 # Ignore ini files
 *.ini
