@@ -55,7 +55,7 @@ Creates a HTML formatted daily backup status report and sends via Email.
 
 - version 0.1 (initial release) - 2014/10/23
 - version 0.2 (cleaned up code and documentation) - 2016/12/20
-- version 0.3 (added opsgenie.ps1 module to parse csv and generate opsgenie alerts) - 2017/07/01
+- version 0.3 (added op_events.ps1 module to parse csv and generate ops system events) - 2017/07/01
 
 ## Credits
 
